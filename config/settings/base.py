@@ -1,7 +1,7 @@
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # Application definition
 DEFAULT_APPS = [
@@ -14,6 +14,13 @@ DEFAULT_APPS = [
 ]
 CUSTOM_APPS = [
     # USER DEFINED APPS
+    'apps.deleted_movies',
+    'apps.movies',
+    'apps.ratings',
+    'apps.reviews',
+    'apps.user_movies',
+    'apps.users',
+    'apps.watchlist',
 ]
 THIRD_PARTY_APPS = [
     # EXTERNAL APPS
