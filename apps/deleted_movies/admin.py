@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import DeletedMovies
+from .models import DeletedMovie
 
 # Register your models here.
-admin.site.register(DeletedMovies)
+admin.site.register(DeletedMovie)

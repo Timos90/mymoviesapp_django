@@ -19,8 +19,8 @@ CUSTOM_APPS = [
     'apps.ratings',
     'apps.reviews',
     'apps.user_movies',
-    'apps.users',
     'apps.watchlist',
+    'apps.friends',
 ]
 THIRD_PARTY_APPS = [
     # EXTERNAL APPS

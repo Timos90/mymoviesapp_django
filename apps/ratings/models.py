@@ -1,15 +1,22 @@
 from django.db import models
-from apps.users.models import Users
-from apps.movies.models import Movies
-from django.contrib.postgres.validators import (
-    RangeMaxValueValidator,
-    RangeMinValueValidator
-)
+from django.contrib.auth.models import User
 
 # Create your models here.
-class Ratings(models.Model):
-    rating_id = models.IntegerField(primary_key=True)
-    user = models.ForeignKey(Users, on_delete=models.CASCADE)
-    movie = models.ForeignKey(Movies, on_delete=models.CASCADE)
-    rating = models.FloatField(validators=[RangeMinValueValidator(1.0), RangeMaxValueValidator(10.1)])
+class Rating(models.Model):
+    rating_id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    movie = models.ForeignKey('movies.Movie', on_delete=models.CASCADE, related_name='ratings')
+    rating = models.FloatField()
     rating_date = models.DateField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = 'Ratings'
+        constraints = [
+            models.CheckConstraint(
+                check=models.Q(rating__gte=1.0) & models.Q(rating__lte=10.0),
+                name='rating_range'
+            ),
+        ]
+
+    def __str__(self) ->str:
+        return f"In {self.rating_date}, the user {self.user} rated the movie'{self.movie}' with ({self.rating})"
