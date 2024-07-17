@@ -14,3 +14,6 @@ class Review(models.Model):
 
     class Meta:
         verbose_name_plural ='Reviews'
+        constraints = [
+        models.UniqueConstraint(fields=['user', 'movie'], name='unique_review')
+    ]

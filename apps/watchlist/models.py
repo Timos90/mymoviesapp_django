@@ -10,3 +10,7 @@ class Watchlist(models.Model):
     def __str__(self) ->str:
         return f"The user {self.user} added the movie'{self.movie}' in his watchlist)"
     
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['user', 'movie'], name='unique_watchlist_movie')
+        ]

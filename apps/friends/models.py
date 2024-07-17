@@ -14,7 +14,9 @@ class Friendship(models.Model):
             raise ValueError("Users cannot be friends with themselves")
 
     class Meta:
-        unique_together = ('user', 'friend')
+        constraints = [
+        models.UniqueConstraint(fields=['user', 'friend'], name='unique_friendship')
+    ]
 
     def __str__(self):
         return f"{self.user} is friends with {self.friend}"

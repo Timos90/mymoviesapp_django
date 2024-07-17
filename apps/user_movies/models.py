@@ -12,4 +12,7 @@ class UserMovie(models.Model):
 
     class Meta:
         verbose_name_plural = 'User Movies'
+        constraints = [
+        models.UniqueConstraint(fields=['user', 'movie'], name='unique_user_movie')
+    ]
     

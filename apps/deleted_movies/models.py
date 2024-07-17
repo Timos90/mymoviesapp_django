@@ -11,3 +11,4 @@ class DeletedMovie(models.Model):
 
     class Meta:
         verbose_name_plural = 'Deleted movies'
+        unique_together = ('user', 'movie')

@@ -12,11 +12,9 @@ class Rating(models.Model):
     class Meta:
         verbose_name_plural = 'Ratings'
         constraints = [
-            models.CheckConstraint(
-                check=models.Q(rating__gte=1.0) & models.Q(rating__lte=10.0),
-                name='rating_range'
-            ),
-        ]
+        models.CheckConstraint(check=models.Q(rating__gte=1.0) & models.Q(rating__lte=10.0), name='rating_range'),
+        models.UniqueConstraint(fields=['user', 'movie'], name='unique_rating')
+    ]
 
     def __str__(self) ->str:
         return f"In {self.rating_date}, the user {self.user} rated the movie'{self.movie}' with ({self.rating})"
