@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - MyMovies App{{ block.super }}{% endblock %}
+
+{% block content %}
+    <header>
+        <h1>Welcome to MyMovies App</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'movies-urls:home_page' %}">Home</a></li>
+               
+                <li><a href="{% url 'movies-urls:top_rated' %}">Top Rated</a></li>
+               
+            </ul>
+            <div>
+                <form method="get" action="{% url 'movies-urls:search_movies' %}">
+                    <input type="text" name="query" placeholder="Search for movies...">
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+    </header>
+    
+    <h3>Featured Movies</h3>
+    <ul>
+        {% for movie in featured_movies %}
+            <li>{{ movie.title }} ({{ movie.releaseyear }})</li>
+        {% endfor %}
+    </ul>
+    
+    <h3>Top Rated Movies</h3>
+    <ul>
+        {% for movie in top_rated_movies %}
+            <li>{{ movie.title }} ({{ movie.rating }})</li>
+        {% endfor %}
+    </ul>
+    
+    <h3>Recently Added Movies</h3>
+    <ul>
+        {% for movie in recent_movies %}
+            <li>{{ movie.title }} ({{ movie.releaseyear }})</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Browse by Genre</h3>
+    <ul>
+        {% for genre in genres %}
+            <li><a href="{% url 'movies-urls:movies_by_genre' genre.id %}">{{ genre.name }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <h3>Popular Tags</h3>
+    <ul>
+        {% for tag in popular_tags %}
+            <li><a href="{% url 'movies-urls:movies_by_tag' tag.id %}">{{ tag.name }}</a></li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

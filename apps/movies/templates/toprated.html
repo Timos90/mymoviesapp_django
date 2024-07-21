@@ -1,23 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Top rated</title>
-</head>
-<body>
-    <header>
-        <h1>Top Rated Movies</h1>
-    </header>
-    
-    <main>
-        <section>
-            <ul>
-                {% for movie in top_rated_movies %}
-                    <li>{{ movie.title }} - Rating: {{ movie.rating }}</li>
-                {% endfor %}
-            </ul>
-        </section>
-    </main>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Top Rated {{ genre.name }}{% endblock %}
+
+{% block content %}
+<h2>Top rated movies {{ genre.name }}</h2>
+<ul>
+    {% for movie in top_rated_movies %}
+        <li>{{ movie.title }} - Rating: {{ movie.rating }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

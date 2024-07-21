@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Movies Tagged "{{ tag.name }}"{% endblock %}
+
+{% block content %}
+<h2>Movies Tagged "{{ tag.name }}"</h2>
+<ul>
+    {% for movie in movies %}
+        <li>{{ movie.title }} ({{ movie.releaseyear }})</li>
+    {% empty %}
+        <li>No movies found for this tag.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

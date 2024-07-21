@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+<h2>Search Results for "{{ query }}"</h2>
+<ul id="movieList">
+    {% for movie in movies %}
+        <li>
+            <strong>{{ movie.title }}</strong> ({{ movie.releaseyear }})
+            <div class="movie-details">
+                <p><strong>Release Date:</strong> {{ movie.releasedate }}</p>
+                <p><strong>Runtime:</strong> {{ movie.runtime }} minutes</p>
+                <p><strong>Rating:</strong> {{ movie.rating }} / 10</p>
+                <p><strong>Description:</strong> {{ movie.description|default:"No description available." }}</p>
+                <p><strong>Language:</strong> {{ movie.language|default:"Not specified" }}</p>
+                <p><strong>Country:</strong> {{ movie.country|default:"Not specified" }}</p>
+                <p><strong>Box Office:</strong> {{ movie.boxoffice|default:"Not available" }}$</p>
+                <p><strong>Awards:</strong> {{ movie.awards|default:"No awards listed" }}</p>
+                <p><strong>Casting:</strong> {{ movie.casting|default:"No casting information" }}</p>
+                <p><strong>Production Company:</strong> {{ movie.productioncompany|default:"Not specified" }}</p>
+                <p><strong>Budget:</strong> {{ movie.budget|default:"Not available" }}$</p>
+                <p><strong>Genres:</strong> 
+                    {% for genre in movie.genres.all %}
+                        {{ genre.name }}{% if not forloop.last %}, {% endif %}
+                    {% empty %}
+                        Not specified
+                    {% endfor %}
+                </p>
+                <p><strong>Directors:</strong> 
+                    {% for director in movie.directors.all %}
+                        {{ director.name }}{% if not forloop.last %}, {% endif %}
+                    {% empty %}
+                        Not specified
+                    {% endfor %}
+                </p>
+                <p><strong>Tags:</strong> 
+                    {% for tag in movie.tags.all %}
+                        {{ tag.name }}{% if not forloop.last %}, {% endif %}
+                    {% empty %}
+                        None
+                    {% endfor %}
+                </p>
+            </div>
+        </li>
+    {% empty %}
+        <li>No movies found matching your search.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
