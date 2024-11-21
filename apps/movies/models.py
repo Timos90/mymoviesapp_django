@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from apps.core.constants import GENRE_CHOICES
 
 # Create your models here.
 class MoviesManager(models.Manager):
@@ -51,11 +52,11 @@ class Movie(models.Model):
     productioncompanyid = models.IntegerField(null=True, blank=True)
     deleted = models.BooleanField(default=False)
     added_by_user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    genres = models.ManyToManyField(Genre, related_name='movies')
+    genres = models.ManyToManyField(Genre, related_name='genre_movies')
     directors = models.ManyToManyField(Director, related_name='directed_movies')
     tags = models.ManyToManyField(Tag, related_name='tagged_movies')
 
-    objects = MoviesManager
+    objects = MoviesManager()
 
     def __str__(self) ->str:
         return f"{self.title}({self.releaseyear})"

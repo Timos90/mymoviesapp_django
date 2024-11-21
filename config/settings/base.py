@@ -22,6 +22,7 @@ CUSTOM_APPS = [
     'apps.watchlist',
     'apps.friends',
     'apps.core',
+    'apps.accounts',
 ]
 THIRD_PARTY_APPS = [
     # EXTERNAL APPS

@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
 from django.views.generic import TemplateView
+from apps.core.constants import GENRE_CHOICES
 
 from .models import Movie, Genre, Tag
 
@@ -10,7 +10,7 @@ def home_page(request):
     top_rated_movies = Movie.objects.filter(deleted=False).order_by('-rating')[:5]
     recent_movies = Movie.objects.filter(deleted=False).order_by('-movieid')[:5]
     genres = Genre.objects.all()
-    popular_tags = Tag.objects.all()[:5]  
+    popular_tags = Tag.objects.all()[:5]
 
     context = {
         'featured_movies': featured_movies,
@@ -35,7 +35,7 @@ class TopRatedPage(TemplateView):
 
 def movies_by_genre(request, genre_id):
     genre = get_object_or_404(Genre, pk=genre_id)
-    movies = Movie.objects.filter(genres=genre, deleted=False)
+    movies = Movie.objects.get_movies_by_genre(genre.name).filter(deleted=False)
     context = {
         'genre': genre,
         'movies': movies,
@@ -53,7 +53,7 @@ def search_movies(request):
 
 def movies_by_tag(request, tag_id):
     tag = get_object_or_404(Tag, pk=tag_id)
-    movies = Movie.objects.filter(tags=tag, deleted=False)
+    movies = Movie.objects.get_movies_by_tags(tag.name).filter(deleted=False)
     context = {
         'tag': tag,
         'movies': movies,
